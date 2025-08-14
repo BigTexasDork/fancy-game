@@ -1,11 +1,11 @@
 extends Area2D
-class_name Attacker
-## Base class for all attackers. Shows current HP in the center.
+class_name Faller
+## Base class for any falling thing (enemy or pickup). Shows current HP.
 
 @export var color: Color = Color(1, 1, 1, 1)
 @export var fall_speed: float = 200.0
 @export var hp_range: Vector2i = Vector2i(1, 1) # inclusive
-@export var value_min_max: Vector2i = Vector2i(-10, 10)
+@export var value_min_max: Vector2i = Vector2i(-10, 10) # optional score-ish payload
 
 var hp: int
 var value: int
@@ -16,24 +16,23 @@ var _is_dead: bool = false
 
 signal reached_bottom
 signal destroyed(value: int)
+signal popped(node) # emitted when HP hits 0 (before free)
 
 func _ready() -> void:
 	_rng.randomize()
 	_viewport_size = get_viewport().get_visible_rect().size
-	# Randomize stats derived from exports
 	hp = int(clamp(_rng.randi_range(hp_range.x, hp_range.y), 1, 9999))
 	value = _rng.randi_range(value_min_max.x, value_min_max.y)
 
-	# Apply visuals
 	if has_node("Polygon2D"):
 		var poly: Polygon2D = $Polygon2D
 		poly.color = color
 
-	# Create a centered HP label (assumes ~60x60 attacker box)
+	# Centered HP label (assumes ~60x60 body)
 	hp_label = Label.new()
 	hp_label.name = "HpLabel"
 	hp_label.custom_minimum_size = Vector2(60, 60)
-	hp_label.position = Vector2(-30, -30) # center a 60x60 box at (0,0)
+	hp_label.position = Vector2(-30, -30)
 	hp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hp_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	hp_label.add_theme_font_size_override("font_size", 28)
@@ -48,7 +47,6 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func hit(projectile: Node) -> void:
-	# Default 1-damage hit; subclasses can override if needed.
 	if _is_dead:
 		return
 	hp -= 1
@@ -56,7 +54,13 @@ func hit(projectile: Node) -> void:
 	if hp > 0:
 		_flash()
 		return
+	_die() # 0 HP
 
+func fire() -> void:
+	# Stub: for future abilities on enemies.
+	pass
+
+func _die() -> void:
 	_is_dead = true
 	set_process(false)
 	monitoring = false
@@ -65,12 +69,11 @@ func hit(projectile: Node) -> void:
 		col.disabled = true
 
 	emit_signal("destroyed", value)
+	emit_signal("popped", self)
 
 	var tween: Tween = create_tween()
-	# Pop the body…
 	tween.tween_property(self, "scale", scale * 1.2, 0.06).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
-	# …and fade the label out in parallel so it doesn’t linger
 	if is_instance_valid(hp_label):
 		tween.parallel().tween_property(hp_label, "modulate:a", 0.0, 0.12)
 	tween.tween_callback(queue_free)
@@ -87,7 +90,3 @@ func _flash() -> void:
 func _update_hp_label() -> void:
 	if hp_label:
 		hp_label.text = str(hp)
-
-func fire() -> void:
-	# Stub: for future attacker abilities.
-	pass

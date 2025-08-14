@@ -14,6 +14,6 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
-	if area is Attacker:
-		(area as Attacker).hit(self)
+	if area is Faller:
+		(area as Faller).hit(self)
 		queue_free()
