@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/Attacker.gd" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+size = Vector2(60, 60)
+
+[node name="Attacker" type="Area2D" groups=["attacker"]]
+script = ExtResource(1)
+monitoring = true
+monitorable = true
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource(1)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+color = Color(0.85, 0.25, 0.25, 1)

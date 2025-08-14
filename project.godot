@@ -1,0 +1,16 @@
+; Engine configuration file.
+; Godot 4.x
+config_version=5
+
+[application]
+config/name="fancy-game"
+run/main_scene="res://scenes/Game.tscn"
+config/icons=PackedStringArray()
+
+[display]
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/handheld/orientation="portrait"
+
+[rendering]
+textures/canvas_textures/default_texture_filter=1

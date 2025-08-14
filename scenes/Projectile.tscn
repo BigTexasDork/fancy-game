@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/Projectile.gd" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+size = Vector2(8, 20)
+
+[node name="Projectile" type="Area2D"]
+script = ExtResource(1)
+monitoring = true
+monitorable = true
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource(1)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-4, -10, 4, -10, 4, 10, -4, 10)
+color = Color(1, 1, 1, 1)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
