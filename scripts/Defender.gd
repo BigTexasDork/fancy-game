@@ -3,6 +3,7 @@ class_name Defender
 
 @export var fire_speed: float = 3.0 # projectiles per second
 @export var projectile_scene: PackedScene
+@export var multi_shot: int = 1 # 1..3
 
 var _fire_timer: Timer
 
@@ -24,12 +25,19 @@ func set_fire_speed(v: float) -> void:
 	fire_speed = v
 	_update_fire_timer()
 
+func set_multi_shot(count: int) -> void:
+	multi_shot = clampi(count, 1, 3)
+
 func _spawn_projectile() -> void:
 	if projectile_scene == null:
 		return
-	var p := projectile_scene.instantiate() as Area2D
-	get_tree().current_scene.add_child(p)
-	p.global_position = global_position + Vector2(0, -22)
+	var n := clampi(multi_shot, 1, 3)
+	var spacing := 18.0
+	var start_x := -spacing * float(n - 1) / 2.0
+	for i in range(n):
+		var p := projectile_scene.instantiate() as Area2D
+		get_tree().current_scene.add_child(p)
+		p.global_position = global_position + Vector2(start_x + i * spacing, -22)
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Drag to move horizontally (touch or mouse); Y stays fixed at bottom.

@@ -1,12 +1,12 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://dnh2vjcvf1jq0"]
 
-[ext_resource type="Script" path="res://scripts/Game.gd" id=1]
-[ext_resource type="PackedScene" path="res://scenes/RedAttacker.tscn" id=2]
-[ext_resource type="PackedScene" path="res://scenes/BlueAttacker.tscn" id=3]
-[ext_resource type="PackedScene" path="res://scenes/Gun.tscn" id=4]
-[ext_resource type="PackedScene" path="res://scenes/Defender.tscn" id=5]
+[ext_resource type="Script" uid="uid://c2fi5yf7ofscs" path="res://scripts/Game.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/RedAttacker.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/BlueAttacker.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/Gun.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/Defender.tscn" id="5"]
 
 [node name="Game" type="Node2D"]
-script = ExtResource(1)
-faller_scenes = Array[PackedScene]([ExtResource(2), ExtResource(3), ExtResource(4)])
-defender_scene = ExtResource(5)
+script = ExtResource("1")
+faller_scenes = Array[PackedScene]([ExtResource("2"), ExtResource("3"), ExtResource("4")])
+defender_scene = ExtResource("5")

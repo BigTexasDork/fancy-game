@@ -1,5 +1,89 @@
-# Godot
-.import/
+# -----------------------------
+# Godot (4.x & 3.x)
+# -----------------------------
+# Godot 4 cache and imported assets
 .godot/
-# macOS
+
+# Godot 3 import cache (harmless to ignore in 4.x too)
+.import/
+
+# Mono / .NET artifacts (if you ever use the .NET build)
+.mono/
+**/*.csproj
+**/*.sln
+**/*.user
+**/obj/
+**/bin/
+
+# Exported builds / packages (keep sources, ignore build outputs)
+*.exe
+*.apk
+*.aab
+*.ipa
+*.dmg
+*.zip
+*.tar.gz
+*.pck
+*.so
+*.dll
+*.dylib
+
+# Temporary / logs
+*.log
+*.tmp
+*~
+*.swp
+*.swo
+
+# -----------------------------
+# iOS / Xcode
+# -----------------------------
+# Build artifacts
+build/
+DerivedData/
+
+# User-specific Xcode data
+xcuserdata/
+*.xcuserdatad
+*.xcuserstate
+*.moved-aside
+
+# Workspaces & projects: keep shared data, ignore user-local
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# dSYM archives
+*.dSYM
+*.dSYM.zip
+
+# CocoaPods (only if you end up using pods in an exported Xcode project)
+Pods/
+
+# -----------------------------
+# macOS system junk
+# -----------------------------
 .DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# -----------------------------
+# Node/JS (just in case you add tooling)
+# -----------------------------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# -----------------------------
+# Notes
+# -----------------------------
+# Keep these in Git (do NOT ignore):
+# - project.godot
+# - all .tscn/.tres/.gd/.cs assets
+# - export_presets.cfg
+# - any art/audio/source files
