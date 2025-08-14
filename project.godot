@@ -1,16 +1,22 @@
 ; Engine configuration file.
-; Godot 4.x
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
 config_version=5
 
 [application]
+
 config/name="fancy-game"
 run/main_scene="res://scenes/Game.tscn"
+config/features=PackedStringArray("4.4")
 config/icons=PackedStringArray()
 
 [display]
+
 window/size/viewport_width=720
 window/size/viewport_height=1280
 window/handheld/orientation="portrait"
-
-[rendering]
-textures/canvas_textures/default_texture_filter=1
